@@ -1,10 +1,10 @@
-import requests
 import re
 from selectMatch import match_url
 from bs4 import BeautifulSoup
-import webbrowser
 import time
 import notify2
+import urllib
+
 def sendmessage(message,team1,team2,score1,score2):
 	notify2.init(data)
 	score=team1+' '+score1+' vs '+team2+' '+score2
@@ -18,8 +18,8 @@ def sendmessage(message,team1,team2,score1,score2):
 previousData="12"   # random initial data	
 data="1"			# random initial data	
 while True:	
-	page_commentary = requests.get(match_url)
-	html = BeautifulSoup(page_commentary.content, "html.parser")
+	page_commentary = urllib.request.urlopen(match_url)
+	html = BeautifulSoup(page_commentary, "html.parser")
 	soup = html.find_all('div',{'class' : 'commentary-item'})
 	#latest commentary
 	description=soup[0].find("div",{"class":"description"})
